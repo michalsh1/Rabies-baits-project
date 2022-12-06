@@ -27,17 +27,21 @@ At the beginning I was given the following files:
 - 540 GPX files of all the routes that were recorder by two different pilots.
 
     -   The file names were supposed to represent the date and the number of baits that were released and more info.
+    -   The files contained one or more routes (multi line strings) and one or more points taken along the flight. I decided to disregard the points layers, and take into consideration only the routs layers.
+
+<center>
 
 
 ![GPX files](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20files.JPG)
 
 <br>
 
-    -   The files contained one or more routes (multi line strings) and one or more points taken along the flight. I decided to disregard the points layers, and take into consideration only the routs layers.
+<br>
+
 <!--
 ![GPX file example](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20file%20example.JPG) 
  -->
-<center>
+
 <img src="https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20file%20example.JPG" width="70%" height="70%">
 </center>
 
