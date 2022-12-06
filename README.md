@@ -23,14 +23,14 @@ Methods of scattering the baits:
 At the beginning I was given the following files:
 - 540 GPX files of all the routes that were recorder by two different pilots.
     -   The file names were supposed to represent the date and the number of baits that were released and more info.
-![GPX files](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%files.JPG)
+![GPX files](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20files.JPG)
 
     -   The files contained one or more routes (multi line strings) and one or more points taken along the flight. I decided to disregard the points layers, and take into consideration only the routs layers.
 
-![GPX file example](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%file%example.JPG)
+![GPX file example](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20file%20example.JPG)
 
 - Excel files with the management calculations for each year. Each column consisted the following: date, number of baits released, area...
-![excel file](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/excel%example.JPG)
+![excel file](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/excel%20example.JPG)
 
 
 <br>
