@@ -7,4 +7,5 @@ def python_fun:
     return 1
 ```
 <!-- Images -->
-![Project image]()
+![img](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/main%20picture.JPG)
+
