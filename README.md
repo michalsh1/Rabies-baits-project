@@ -25,7 +25,10 @@ Methods of scattering the baits:
 ## Original files:
 At the beginning I was given the following files:
 - 540 GPX files of all the routes that were recorder by two different pilots.
+
     -   The file names were supposed to represent the date and the number of baits that were released and more info.
+
+
 ![GPX files](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20files.JPG)
 
 <br>
