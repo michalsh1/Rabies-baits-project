@@ -31,8 +31,12 @@ At the beginning I was given the following files:
 <br>
 
     -   The files contained one or more routes (multi line strings) and one or more points taken along the flight. I decided to disregard the points layers, and take into consideration only the routs layers.
-
-![GPX file example](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20file%20example.JPG)
+<!--
+![GPX file example](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20file%20example.JPG) 
+ -->
+<center>
+<img src="https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20file%20example.JPG" width="70%" height="70%">
+</center>
 
 <br>
 
