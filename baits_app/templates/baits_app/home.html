@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<body lang="en">
+{% load static %}
+{% load leaflet_tags %}
+
+<head>
+    {% leaflet_js %}
+    {% leaflet_css %}
+
+    <meta charset="UTF-8">
+    <title>home map</title>
+
+    <style type="text/css">
+        #map_name {width: 50%; height:700px;}
+    </style>
+    <link href="{% static 'reporter/dist/leaflet.groupedlayercontrol.min.css' %}" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="{% static 'reporter/js/leaflet.ajax.js' %}" ></script>
+    <script type="text/javascript" src="{% static 'reporter/dist/leaflet.groupedlayercontrol.min.js' %}" ></script>
+
+    <!--    font-awsone needed for awsome-markers and vector-markers-->
+         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css">
+
+    <!--    awsome-markers-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+<!--    vector-markers-->
+        <link href="{% static 'reporter/dist/leaflet-vector-markers.css' %}" rel="stylesheet" type="text/css">
+        <script src="{% static 'reporter/dist/leaflet-vector-markers.js'%}"></script>
+
+</head>
+
+<body>
+<i class="fab fa-500px"></i>
+<i class="fab fa-500px">aaa</i>
+<i class="fas fa-adjust"></i>
+<h3>map1</h3>
+<br>
+<script type="text/javascript">
+    function our_layers(map, options){
+        var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}{y}{x}.png');
+
+        var myStyle = {
+            "color": "#F9FF33",
+            "weight": 1,
+            "opacity": 0.65
+        };
+
+        var datasets=new L.GeoJSON.AJAX("{% url 'parks' %}",{
+            style:myStyle,
+            onEachFeature: function(feature, layer){
+                layer.bindPopup(feature.properties.park_heb_n.toString())}
+
+        });
+
+        var myStyle2 = {
+            "color": "#4DFF33",
+            "weight": 3,
+            "opacity": 0.50
+        };
+        var datasets2= new L.GeoJSON.AJAX("{% url 'roni_pixels' %}",{
+            style:myStyle2,
+            onEachFeature: function(feature, layer){
+                layer.bindPopup(feature.properties.mahoz.toString())}
+        });
+
+<!--        awsome marker trying -->
+        var redMarker = L.AwesomeMarkers.icon({
+            icon: 'coffee',
+            markerColor: 'red'
+            });
+        var redvectorMarker = L.VectorMarkers.icon({
+            icon: 'circle',
+            markerColor: 'hsl(158, 100%, 73%)',
+<!--            iconColor: getColor(0)-->
+<!--            markerColor: 'blue'-->
+
+          });
+
+        L.marker([32.12022, 35.06664], {icon: redMarker}).addTo(map);
+        L.marker([32.00000, 35.06664], {icon: redvectorMarker}).addTo(map);
+
+
+
+        datasets.addTo(map);
+        datasets2.addTo(map);
+
+        var baseLayers = {
+            "OSM":osm
+            }
+        var groupedOverlays = {
+        "Layers": {
+            "Parks": datasets,
+            "Mahozot": datasets2
+            },
+        };
+        L.control.groupedLayers(baseLayers, groupedOverlays, options).addTo(map);
+
+
+
+    }
+
+</script>
+
+{% leaflet_map "map_name" callback="window.our_layers" %}
+
+</body>
+</html>

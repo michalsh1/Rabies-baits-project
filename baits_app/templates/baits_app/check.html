@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<body lang="en">
+{% load static %}
+{% load leaflet_tags %}
+
+<head>
+    {% leaflet_js %}
+    {% leaflet_css %}
+
+    <meta charset="UTF-8">
+    <title>home map</title>
+
+    <style type="text/css">
+        #map_name {width: 50%; height:700px;}
+    </style>
+    <link href="{% static 'reporter/dist/leaflet.groupedlayercontrol.min.css' %}" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="{% static 'reporter/js/leaflet.ajax.js' %}" ></script>
+    <script type="text/javascript" src="{% static 'reporter/dist/leaflet.groupedlayercontrol.min.js' %}" ></script>
+
+    <!--    font-awsone needed for awsome-markers and vector-markers-->
+         <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css">
+
+    <!--    awsome-markers-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+
+<!--    vector-markers-->
+        <link href="{% static 'reporter/dist/leaflet-vector-markers.css' %}" rel="stylesheet" type="text/css">
+        <script src="{% static 'reporter/dist/leaflet-vector-markers.js'%}"></script>
+
+</head>
+
+<body>
+
+{{payment}}
+</body>
+</html>

@@ -1,0 +1,43 @@
+.legend {
+    text-align: left;
+    line-height: 18px;
+    color: rgba(74,74,74,1);
+    font-size: 10px;
+    font-weight: 300;
+    background-color: rgba(245,245,245,1);
+    padding: 5px;
+}
+
+.legend label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(74,74,74,1);
+}
+
+.legend-label-text {
+    display: inline-block;
+}
+
+.legend-content-text {
+    display: inline-block;
+    margin-left: 0px;
+    margin-right: auto;
+}
+
+.legend i {
+    width: 9px;
+    height: 9px;
+    float: left;
+    margin-left: 0px;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+.legend .circle {
+    width: 12px;
+    height: 12px;
+    margin-top: 3px;
+    float: left;
+    border: 0.1px solid rgba(153,153,153,1);
+    border-radius: 50%;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<body lang="en">
+{% load static %}
+{% load leaflet_tags %}
+
+<head>
+    {% leaflet_js %}
+    {% leaflet_css %}
+
+    <meta charset="UTF-8">
+    <title>home map</title>
+
+    <style type="text/css">
+        #map_name {width: 50%; height:700px;}
+    </style>
+    <link href="{% static 'reporter/dist/leaflet.groupedlayercontrol.min.css' %}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{% static 'reporter/js/leaflet.ajax.js' %}" ></script>
+    <script type="text/javascript" src="{% static 'reporter/dist/leaflet.groupedlayercontrol.min.js' %}" ></script>
+
+</head>
+
+<body>
+<h3>Roni's Data</h3>
+<br>
+<script type="text/javascript">
+    function our_layers(map, options){
+        var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}{y}{x}.png');
+
+        var myStyle = {
+            "color": "#F9FF33",
+            "weight": 1,
+            "opacity": 0.65
+        };
+
+        var datasets=new L.GeoJSON.AJAX("{% url 'roni_data' %}",{
+            style:myStyle,
+            onEachFeature: function(feature, layer){
+                layer.bindPopup(feature.properties.feat_name.toString())}
+
+        });
+
+        datasets.addTo(map);
+
+        var baseLayers = {
+            "OSM":osm
+            }
+        L.control.groupedLayers(baseLayers, groupedOverlays, options).addTo(map);
+
+
+
+    }
+
+</script>
+
+{% leaflet_map "map_name" callback="window.our_layers" %}
+
+</body>
+</html>

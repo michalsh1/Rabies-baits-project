@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+{% load static %}
+{% load leaflet_tags %}
+
+<head>
+    {% leaflet_js %}
+    {% leaflet_css %}
+
+    <meta charset="UTF-8">
+    <title>home map</title>
+
+    <style type="text/css">
+        #your_map {width: 100%; height:700px;}
+    </style>
+    <link href="{% static 'reporter/dist/leaflet.groupedlayercontrol.min.css' %}" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="{% static 'reporter/js/leaflet.ajax.js' %}" ></script>
+    <script type="text/javascript" src="{% static 'reporter/dist/leaflet.groupedlayercontrol.min.js' %}" ></script>
+
+</head>
+
+<body>
+{% block content %}
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+  
+function getColor(){
+    var color;
+    var r = Math.floor(Math.random() * 255);
+    var g = Math.floor(Math.random() * 255);
+    var b = Math.floor(Math.random() * 255);
+    color= "rgb("+r+" ,"+g+","+b+")";
+
+return color;
+};
+
+// inds_pks='{{inds_pks|safe}}'
+// inds_pks = inds_pks.split(',')
+
+individuals=JSON.parse('{{individuals|safe}}')
+console.log(individuals)
+
+for (ind in individuals){
+    console.log(individuals[ind].fields.individual_name)
+    console.log(individuals[ind].pk)
+
+}
+
+function map_init_basic (map, options) {
+    var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}{y}{x}.png');
+    var groupedOverlays = {
+        "Layers": {}
+        };
+
+    for (ind in individuals){
+    var color= getColor()
+   var latlngs = Array();
+
+   var jsonPointsLayer = L.geoJson({{ object.get_daily_ils_json | safe }},{
+           pointToLayer: function (feature, latlng) {
+            if(feature.properties.individual==individuals[ind].pk){
+                latlngs.push(latlng);
+
+                    return L.circleMarker(latlng, {
+                    radius: 8.0,
+                    fillColor: color,
+                    color: color,
+                    weight: 1,
+                    opacity: 1.0,
+                    fillOpacity: 0.8 })
+
+                      ;
+                // return L.circleMarker(latlng, greenMarkerOptions);
+           }
+           },
+           onEachFeature: function (feature, layer) {
+                   var txt = '<br>' + feature.individual; <!--individual pk! -->
+                                   layer.bindPopup(txt);
+                                   }
+                                   
+   })
+   var polyline = L.polyline(latlngs, {color: color})
+   
+    var individualGroup = L.layerGroup([jsonPointsLayer, polyline]);
+    individualGroup.addTo(map);
+    groupedOverlays["Layers"][individuals[ind].fields.individual_name]=individualGroup;
+
+   }
+
+ 
+    map.fitBounds(jsonPointsLayer.getBounds(),{padding: [150,150]}, {maxZoom: 15})
+
+
+    var baseLayers = {
+            "OSM":osm
+            }
+     
+        console.log(groupedOverlays)
+     
+    L.control.groupedLayers(baseLayers, groupedOverlays, options).addTo(map);
+    
+}
+
+</script>
+
+
+
+
+
+{% endblock %}
+{% leaflet_map "your_map" callback="window.map_init_basic" %}
+
+</body>
+</html>

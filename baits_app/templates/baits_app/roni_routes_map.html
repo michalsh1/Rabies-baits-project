@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+{% load static %}
+{% load leaflet_tags %}
+
+{% block extrahead %}
+<head>
+    {% leaflet_js %}
+    {% leaflet_css %}
+
+    <meta charset="UTF-8">
+    <title>Roni's routes</title>
+
+    <style type="text/css">
+        #map_name {width: 95%; height:700px;}
+    </style>
+    <style>
+        .dot {
+          height: 15px;
+          width: 15px;
+          border-radius: 50%;
+          display: inline-block;
+        }
+        </style>
+    <link href="{% static "/reporter/css/map_legend.css" %}" rel="stylesheet">
+    <link href="{% static 'reporter/dist/leaflet.groupedlayercontrol.min.css' %}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{% static 'reporter/js/leaflet.ajax.js' %}" ></script>
+    <script type="text/javascript" src="{% static 'reporter/dist/leaflet.groupedlayercontrol.min.js' %}" ></script>
+
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous">
+   </script> -->
+</head>
+{% endblock %}
+
+
+{% block content %}
+<body>
+<h3>Roni's Routes</h3>
+<br>
+
+<form method="get">
+    <table>
+        {{ form.as_table }}
+    </table>
+    <small> maximum 14 days</small>
+    <div style="line-height:120%;"><br></div>
+    <input type="submit" value= 'Send'  />
+
+</form>
+<div style="line-height:30%;"><br></div>
+
+
+
+
+{% leaflet_map "map_name" callback="window.map_init_basic" %}
+{% endblock %}
+
+{% block scripts %}
+<style>
+    .leaflet-container {  /* all maps */
+        width:  100%;
+        height: 500px;
+    }
+</style>
+
+<script type="text/javascript">
+
+routes_json={{routes_json|safe}}
+
+// function getColor(pk) {
+//     var color= JSON.parse(routes_json[pk])['color']
+//     return { color: color };
+//             }
+
+// var setLegend = function (map){
+//     var legendPosition = 'bottomright';
+//     var legend = L.control({position: legendPosition});
+//     legend.onAdd = function (map) {
+//         var div = L.DomUtil.create('div', 'info legend');
+//         items1=[]
+//         for (pk in routes_json){
+//             items1.push(pk)
+//         }
+//         label = "Individuals";
+
+//         div.innerHTML += '<label><span class="legend-label-text">'+label+'</span>' + '<button class="btn-link close-button" aria-label="Close Account Info Modal Box" ;"></button>'+'</label>'
+//         var inner_content = ''
+//         for (var i = 0; i < items1.length; i++) {
+//             inner_content +=  '<div><i class="circle" style="background:'
+//             + getColor(items1[i])['color']
+//             + '"></i><span class="legend-content-text">' + items1[i]
+//             + '</span></div>';
+//         }
+//         div.innerHTML += '<span class="legend_content">' + inner_content + '</span>'
+//         return div;
+//     };
+//     legend.addTo(map);
+//     showLegend = true;  // default value showing the legend
+// };
+
+
+function map_init_basic(map, options){
+    var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}{y}{x}.png');
+    var groupedOverlays = {
+            "Layers": {}
+            };
+
+    for (pk in routes_json){
+        var color= JSON.parse(routes_json[pk])['color']
+        var roni_routes_layer= L.geoJson(JSON.parse(routes_json[pk]), {
+
+        onEachFeature: function (feature, layer){
+            var date= feature.properties.date
+            var baits_num = feature.properties.baits_num
+
+            var txt = 'pk: '+pk; 
+            txt = txt +'<br>'+'date: '+date;;
+            txt = txt +'<br>'+ 'baites: '+baits_num;
+            
+            if (feature.properties.route_origin==0){
+                    txt = txt +'<br>'+ 'route origin: '+"Roni's data";
+                    var origin_files = feature.properties.origin_files
+                    txt = txt +'<br>'+ 'origin files: '+origin_files;
+                }
+                else{
+                    txt = txt +'<br>'+ 'route origin: '+"Timi's data";
+                    var timi_id = feature.properties.timi_id
+                    txt = txt +'<br>'+ 'timi id: '+timi_id;
+                }
+        layer.bindPopup(txt)
+            },
+            style: function(feature) {
+                var routeStyle = {
+                    "color": color,
+                    "weight": 3,
+                    "opacity": 0.65
+                };
+                return routeStyle
+            }
+        
+    }).addTo(map);
+
+    json=JSON.parse(routes_json[pk])
+    date=(json.features[0].properties.date)
+    
+    var color_icon = '<div class="dot" style="background-color: '+color+'"></div>'
+    
+    groupedOverlays["Layers"][color_icon+" "+date]=roni_routes_layer;
+}
+    var baseLayers = {
+        "OSM":osm
+        }
+
+        var options = {collapsed: false};
+        L.control.groupedLayers(baseLayers, groupedOverlays, options).addTo(map);
+        // setLegend(map);
+    }
+</script>
+{% endblock %}
+
+
+</body>
+</html>
