@@ -1,5 +1,5 @@
-# Baits project
-![img](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/main%20picture.JPG)
+# Rabies vaccine baits project
+<img src="https://github.com/michalsh1/rabies-baits-project/blob/master/Images/main%20picture.JPG" width="50%" height="50%">
 
 <br>
 
@@ -12,8 +12,6 @@ In order to control and stop the spread or rabies disease, Israel Nature and Par
 ## Project's goal:
 In order to track the release of the baits, We wanted to know how many rabies baites were being released during a specific date, time and area.
 
-<br>
-<br>
 
 Methods of scattering the baits:
 1. Most of the baits are being released using airplanes.
@@ -23,13 +21,14 @@ Methods of scattering the baits:
 <br>
 
 ## Original files:
+
 At the beginning I was given the following files:
 - 540 GPX files of all the routes that were recorder by two different pilots.
 
     -   The file names were supposed to represent the date and the number of baits that were released and more info.
 
 
-    ![GPX files](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20files.JPG)
+    ![GPX files](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20files.JPG "GPX files")
 
 
     -   The files contained one or more routes (multi line strings) and one or more points taken along the flight. I decided to disregard the points layers, and take into consideration only the routs layers.
@@ -39,10 +38,13 @@ At the beginning I was given the following files:
 
 <br>
 
+<p align="center">
 
 <img src="https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20file%20example.JPG" width="70%" height="70%">
-
+</p>
 <br>
+<br>
+
 
 - Excel files with the management calculations for each year. Each column consisted the following: date, number of baits released, area...
 ![excel file](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/excel%20example.JPG)
