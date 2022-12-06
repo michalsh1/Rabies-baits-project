@@ -13,10 +13,13 @@ In order to control and stop the spread or rabies disease, Israel Nature and Par
 In order to track the release of the baits, We wanted to know how many rabies baites were being released during a specific date, time and area.
 
 <br>
+<br>
+
 Methods of scattering the baits:
 1. Most of the baits are being released using airplanes.
 2. Some of the baits are being scattered by foot by INPA rangers. 
 
+<br>
 <br>
 
 ## Original files:
@@ -25,9 +28,13 @@ At the beginning I was given the following files:
     -   The file names were supposed to represent the date and the number of baits that were released and more info.
 ![GPX files](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20files.JPG)
 
+<br>
+
     -   The files contained one or more routes (multi line strings) and one or more points taken along the flight. I decided to disregard the points layers, and take into consideration only the routs layers.
 
 ![GPX file example](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20file%20example.JPG)
+
+<br>
 
 - Excel files with the management calculations for each year. Each column consisted the following: date, number of baits released, area...
 ![excel file](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/excel%20example.JPG)
