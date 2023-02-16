@@ -1,4 +1,6 @@
 # Rabies vaccine baits project
+## This Django app was built for storing oral rabies vaccine drop data, manipulating it and calculating the scattering for desired dates.
+
 <img src="https://github.com/michalsh1/rabies-baits-project/blob/master/Images/main%20picture.JPG" width="50%" height="50%">
 
 <br>
