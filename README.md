@@ -37,7 +37,7 @@ I was given different types of data, from different sources:
 -   The file names were supposed to represent the date and the number of baits that were released and more info.
 
 
-        ![GPX files](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20files.JPG "GPX files")
+       ![GPX files](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20files.JPG "GPX files")
 
 
 -   The files contained one or more routes (multi line strings) and points taken along the flight.
@@ -45,10 +45,8 @@ I was given different types of data, from different sources:
 
 <br>
 
-<p align="center">
 
 <img src="https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20file%20example.JPG" width="70%" height="70%">
-</p>
 <br>
 <br>
 
@@ -89,7 +87,7 @@ I decided to disregard the points layers, as they were the same as the multi lin
 <br>
 I cleaned and transformed relevant data: file name, feature name, date and multi-line-string route. 
 <br>
-Those were saved in a preliminary Django model in the data base.
+Those were saved in a temporary Django model in the data base.
 <br>
 Often, one shp file contained few MLS (Multi Line String) files - So I kept them all in the Django model.
 
@@ -157,8 +155,6 @@ In cases where I have had only points of scatterring - I created a polygon and a
 
 I generated a new model that have pixels all along the area that I was asked to calculate scattering in.
 
-***** image
-
 
 Then, in order to calculate scattering - one should run the script ```roni_PixelByDate_calc.py```
 <br>
@@ -167,6 +163,10 @@ This scripts checks the data in the two models- ```RoniRoutes``` and ```RoniPoly
 In each case where there has been an intersaction - a new pixel is generated with the date of scatterring, and the mean number of baites that were scattered in that pixel, based on the routes and polygons models.
  
 Then, in order to answer the question "how many baits were scattered in X area in Y dates" : one can export the ```PixelByDate``` model data into json file using ```export_roni_data.py```, then load it to QGIS and interscet with desired polygon and filter by dates.
+
+
+![PixelByDate_example]([https://github.com/michalsh1/rabies-baits-project/blob/master/Images/excel%20example.JPG](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/PixelByDate_example.jpg))
+
 
 <br>
 <br>
