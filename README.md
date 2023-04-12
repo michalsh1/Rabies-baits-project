@@ -14,30 +14,33 @@ In order to control and stop the spread or rabies disease, Israel Nature and Par
 ## Project's goal
 In order to track the release of the baits, I was asked to create an app to store rabies vaccination data and to calculate the number of rabies baites that were released during a desired date, time and area.
 
+<br>
 
-Assumptions and meta data of vaccine scattering:
+## Assumptions and meta data of vaccine scattering:
 1. Most of the baits are being released using airplanes.
 2. Some of the baits are being scattered by foot by INPA rangers. 
 
-<br>
 <br>
 
 ## Original files
 
 I was given different types of data, from different sources:
 
-1. Airborne scattering routes files:
+### 1. Airborne scattering routes files:
+
+<br/>
+
 - 540 GPX files of all the routes that were recorder by two different pilots.
-
-    -   The file names were supposed to represent the date and the number of baits that were released and more info.
-
-
-    ![GPX files](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20files.JPG "GPX files")
+    <br>
 
 
-    -   The files contained one or more routes (multi line strings) and one or more points taken along the flight. I decided to disregard the points layers, as they were the same as the milti line string's points - and took into consideration only the rout layers.
+-   The file names were supposed to represent the date and the number of baits that were released and more info.
 
 
+        ![GPX files](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20files.JPG "GPX files")
+
+
+-   The files contained one or more routes (multi line strings) and points taken along the flight.
 
 
 <br>
@@ -49,44 +52,52 @@ I was given different types of data, from different sources:
 <br>
 <br>
 
-2. Route files for dispersal by foot
+
+### 2. Route/point files for dispersal by foot
 
 - These files were recorded using a different app, and might or might not include routes.
 
 <br>
 <br>
 
-3. Scattering polygons 
+### 3. Scattering polygons 
 - In cases where pilots didn't record the flight route- they gave a polygon where they scattered the baites.
 
 
 <br>
 <br>
 
-4. Excel files
+### 4. Excel files
 - these files are supposed to sum all the data that is related to the different routes and polygons.
-- Each column consistes the following: date, number of baits released, area...
+- Each column consistes the following: date, number of baits released, area etc. 
 ![excel file](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/excel%20example.JPG)
 
 
 <br>
 
-## Work process
-
-### First processing part: Cleaning data using Django
-
-First I cleaned all data from different sources, and load it into main data base.
+## Work process: airborne scatterring data
+Most of the work was on cleaning airborne routes and generating a main data base with all data in the same format.
 
 <br>
 
-Using Django (Python) I uploaded the route from shp files into a Django model (SQLite).
-I cleaned and transformed relevant data: file name, feature name, date and multi-line-string route. Those were saved in the route model in the data base.
+### First processing part: Cleaning airborne data using Django (Python)
+
+Using Django, I uploaded the route from shp files into a Django model (SQLite).
+<br>
+I decided to disregard the points layers, as they were the same as the multi line string's points - and took into consideration only the rout layers.
+
+<br>
+I cleaned and transformed relevant data: file name, feature name, date and multi-line-string route. 
+<br>
+Those were saved in a preliminary Django model in the data base.
+<br>
 Often, one shp file contained few MLS (Multi Line String) files - So I kept them all in the Django model.
 
 <br>
-In the end of this proess I had clean data model: I had each route with it's relevant meta data: date, original file and feature names.
+In the end of this process I have had clean data model:each route with it's relevant meta data: date, original file and feature names.
 
-
+<br>
+<br>
 
 ### Second processing part: Cleaning data using QGIS and Excel
 
@@ -95,20 +106,74 @@ Then I cleaned the routes using QGIS:
 
 1. I hava found all the double routes and kept only relevant files.
 2. I removed all remainders from take-off, landing and of the flight to the scatterring area.
-3. I mathced SHP files to the excel file. That allowed:
-- To have number of bites for each route.
-- To find irragularities and issues to be solved later on.
+3. I mathced the route files to the excel file. That allowed:
+    - To have number of bites for each route.
+    - To find irragularities and issues to be solved later on.
 
+<br>
+<br>
 
-
-### Third processing part: Uploading cleaned data into a unified SQLite data base using Django
+### Third processing part: Uploading cleaned data into a SQLite data base using Django (class RoniRoutes)
 
 I Generated a new model to store all routes in Django data base.
+<br>
+And I uploaded the clean airborne data into this model
+<br>
+<br>
+<br>
+
+## Work process: polygons of airborne data 
+
+
+class RoniPolygons
+As mentioned, in some cases I had only polygons of scatterring area. 
+<br>
+
+I decided to create a second model - of polygons. and Uploaded these polygons, after matching to excel file - in the new model (class RoniPolygons)
+
+
+
+
+<br>
+<br>
+<br>
+
+## Work process: scatterring by-foot
+
+### routes:
+I wrote a script to add this data to the cleaned route model (RoniRoutes).
 
 <br>
 
-<br><br><br><br>
+### points:
+In cases where I have had only points of scatterring - I created a polygon and added it to the Polygon model (RoniPolygons).
+<br>
+
+<br>
+<br>
+<br>
+
+## Scatterring calculations:
+
+I generated a new model that have pixels all along the area that I was asked to calculate scattering in.
+
+***** image
 
 
+Then, in order to calculate scattering - one should run the script ```roni_PixelByDate_calc.py```
+<br>
 
-#WORK IN PROGRESS
+This scripts checks the data in the two models- ```RoniRoutes``` and ```RoniPolygons```, to see if they are intersceting with the relevant pixel. And then updates a model called ```PixelByDate```. 
+In each case where there has been an intersaction - a new pixel is generated with the date of scatterring, and the mean number of baites that were scattered in that pixel, based on the routes and polygons models.
+ 
+Then, in order to answer the question "how many baits were scattered in X area in Y dates" : one can export the ```PixelByDate``` model data into json file using ```export_roni_data.py```, then load it to QGIS and interscet with desired polygon and filter by dates.
+
+<br>
+<br>
+<br>
+
+## Notes:
+
+- All data can be exported to json files - in order to make further calculations.
+<br>
+- This app could have a better UI, But for now- this results is enough for those who requested it.
