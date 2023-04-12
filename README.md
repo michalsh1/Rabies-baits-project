@@ -165,7 +165,8 @@ In each case where there has been an intersaction - a new pixel is generated wit
 Then, in order to answer the question "how many baits were scattered in X area in Y dates" : one can export the ```PixelByDate``` model data into json file using ```export_roni_data.py```, then load it to QGIS and interscet with desired polygon and filter by dates.
 
 
-![PixelByDate_example]([https://github.com/michalsh1/rabies-baits-project/blob/master/Images/excel%20example.JPG](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/PixelByDate_example.jpg))
+
+![PixelByDate_example](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/PixelByDate_example.jpg)
 
 
 <br>
