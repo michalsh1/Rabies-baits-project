@@ -28,26 +28,19 @@ I was given different types of data, from different sources:
 
 ### 1. Airborne scattering routes files:
 
-<br/>
-
 - 540 GPX files of all the routes that were recorder by two different pilots.
     <br>
 
-
 -   The file names were supposed to represent the date and the number of baits that were released and more info.
-
-
        ![GPX files](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20files.JPG "GPX files")
-
+<br>
 
 -   The files contained one or more routes (multi line strings) and points taken along the flight.
 
 
-<br>
+![Roni_original_files](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/Roni_original_data.jpg)
 
 
-<img src="https://github.com/michalsh1/rabies-baits-project/blob/master/Images/gpx%20file%20example.JPG" width="70%" height="70%">
-<br>
 <br>
 
 
@@ -56,13 +49,11 @@ I was given different types of data, from different sources:
 - These files were recorded using a different app, and might or might not include routes.
 
 <br>
-<br>
 
 ### 3. Scattering polygons 
 - In cases where pilots didn't record the flight route- they gave a polygon where they scattered the baites.
 
 
-<br>
 <br>
 
 ### 4. Excel files
@@ -73,7 +64,7 @@ I was given different types of data, from different sources:
 
 <br>
 
-## Work process: airborne scatterring data
+## Work process: airborne scatterring routes
 Most of the work was on cleaning airborne routes and generating a main data base with all data in the same format.
 
 <br>
@@ -109,7 +100,6 @@ Then I cleaned the routes using QGIS:
     - To find irragularities and issues to be solved later on.
 
 <br>
-<br>
 
 ### Third processing part: Uploading cleaned data into a SQLite data base using Django (class RoniRoutes)
 
@@ -118,22 +108,14 @@ I Generated a new model to store all routes in Django data base.
 And I uploaded the clean airborne data into this model
 <br>
 <br>
-<br>
 
 ## Work process: polygons of airborne data 
+### class RoniPolygons
 
-
-class RoniPolygons
 As mentioned, in some cases I had only polygons of scatterring area. 
 <br>
-
 I decided to create a second model - of polygons. and Uploaded these polygons, after matching to excel file - in the new model (class RoniPolygons)
 
-
-
-
-<br>
-<br>
 <br>
 
 ## Work process: scatterring by-foot
@@ -141,27 +123,27 @@ I decided to create a second model - of polygons. and Uploaded these polygons, a
 ### routes:
 I wrote a script to add this data to the cleaned route model (RoniRoutes).
 
-<br>
-
 ### points:
 In cases where I have had only points of scatterring - I created a polygon and added it to the Polygon model (RoniPolygons).
-<br>
 
-<br>
 <br>
 <br>
 
 ## Scatterring calculations:
 
-I generated a new model that have pixels all along the area that I was asked to calculate scattering in.
-
+I generated a new model of 1 squered km pixels all along the area that I was asked to calculate scattering in.
 
 Then, in order to calculate scattering - one should run the script ```roni_PixelByDate_calc.py```
 <br>
 
 This scripts checks the data in the two models- ```RoniRoutes``` and ```RoniPolygons```, to see if they are intersceting with the relevant pixel. And then updates a model called ```PixelByDate```. 
 In each case where there has been an intersaction - a new pixel is generated with the date of scatterring, and the mean number of baites that were scattered in that pixel, based on the routes and polygons models.
- 
+
+<img src="https://github.com/michalsh1/rabies-baits-project/blob/master/Images/PixelByDate_and_route_polygons.JPG" width="70%" height="70%">
+
+
+<br>
+
 Then, in order to answer the question "how many baits were scattered in X area in Y dates" : one can export the ```PixelByDate``` model data into json file using ```export_roni_data.py```, then load it to QGIS and interscet with desired polygon and filter by dates.
 
 
@@ -171,10 +153,8 @@ Then, in order to answer the question "how many baits were scattered in X area i
 
 <br>
 <br>
-<br>
 
 ## Notes:
 
 - All data can be exported to json files - in order to make further calculations.
-<br>
 - This app could have a better UI, But for now- this results is enough for those who requested it.
