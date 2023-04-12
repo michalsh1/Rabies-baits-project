@@ -1,5 +1,5 @@
 # Rabies vaccine baits project
-## This Django app was built for storing oral rabies vaccine drop data, manipulating it and calculating the scattering for desired dates.
+### This Django app was built in order to clean, manipulate and store oral rabies vaccine dispersal data, and in order to calculate, using this data, the scattering for desired dates and area.
 
 <img src="https://github.com/michalsh1/rabies-baits-project/blob/master/Images/main%20picture.JPG" width="50%" height="50%">
 
@@ -109,7 +109,7 @@ And I uploaded the clean airborne data into this model
 <br>
 <br>
 
-## Work process: polygons of airborne data 
+## Work process:  airborne scatterring polygons 
 ### class RoniPolygons
 
 As mentioned, in some cases I had only polygons of scatterring area. 
@@ -151,7 +151,6 @@ Then, in order to answer the question "how many baits were scattered in X area i
 ![PixelByDate_example](https://github.com/michalsh1/rabies-baits-project/blob/master/Images/PixelByDate_example.jpg)
 
 
-<br>
 <br>
 
 ## Notes:
