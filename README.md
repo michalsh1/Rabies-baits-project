@@ -69,7 +69,7 @@ Most of the work was on cleaning airborne routes and generating a main data base
 
 <br>
 
-### First processing part: Cleaning airborne data using Django (Python)
+### First processing part: cleaning airborne data using Django (Python)
 
 Using Django, I uploaded the route from shp files into a Django model (SQLite).
 <br>
@@ -88,7 +88,7 @@ In the end of this process I have had clean data model:each route with it's rele
 <br>
 <br>
 
-### Second processing part: Cleaning data using QGIS and Excel
+### Second processing part: cleaning data using QGIS and Excel
 
 I exported the cleaned routes Django  model into shp files in order to check for duplications.
 Then I cleaned the routes using QGIS:
@@ -101,7 +101,7 @@ Then I cleaned the routes using QGIS:
 
 <br>
 
-### Third processing part: Uploading cleaned data into a SQLite data base using Django (class RoniRoutes)
+### Third processing part: uploading cleaned data into a SQLite data base using Django (class RoniRoutes)
 
 I Generated a new model to store all routes in Django data base.
 <br>
@@ -109,7 +109,7 @@ And I uploaded the clean airborne data into this model
 <br>
 <br>
 
-## Work process:  airborne scatterring polygons 
+## Work process: airborne scatterring polygons 
 ### class RoniPolygons
 
 As mentioned, in some cases I had only polygons of scatterring area. 
