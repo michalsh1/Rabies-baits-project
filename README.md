@@ -1,4 +1,4 @@
-# Rabies vaccine baits project
+# Rabies Wildlife Vaccination Program
 ### This Django app was built in order to clean, manipulate and store oral rabies vaccine dispersal data, and in order to calculate, using this data, the scattering for desired dates and area.
 
 <img src="https://github.com/michalsh1/rabies-baits-project/blob/master/Images/main%20picture.JPG" width="50%" height="50%">
